@@ -1,1 +1,28 @@
-=IFERROR(MID(Z2,MIN(IF(ISNUMBER(--MID(Z2,ROW($1:$100),5))),ROW($1:$100))), "")
+To achieve the desired result in Excel, you can use a combination of functions such as `SUMIFS`, `COUNTIFS`, and `IF`. Let's assume your "Req Number" column is in column A and the "Data Status" column is in column B. You can follow these steps:
+
+1. In an empty column, let's say column C (starting from C2), enter the following formula to calculate the count of "Not Found" for each "Req Number":
+
+```
+=SUMIFS($B$2:$B$100, $A$2:$A$100, A2, $B$2:$B$100, "not found")
+```
+
+2. In another empty column, let's say column D (starting from D2), enter the following formula to check if a "Req Number" has only "Not Found" entries:
+
+```
+=IF(COUNTIFS($A$2:$A$100, A2, $B$2:$B$100, "not found")=COUNTIFS($A$2:$A$100, A2), "Not Found", "Found")
+```
+
+3. Now, you will have a new column (column D) displaying "Not Found" or "Found" for each "Req Number" based on your criteria.
+
+4. If you want to get the unique "Req Numbers" that have "Not Found" status, you can use the "Remove Duplicates" feature in Excel.
+
+Here's how you can do that:
+
+- Select the range containing the "Req Numbers" and the "Not Found/Found" status (columns A and D).
+- Go to the "Data" tab in the Excel ribbon.
+- Click on "Remove Duplicates" in the "Data Tools" group.
+- A dialog box will appear, and you can choose to remove duplicates based on the "Req Numbers" (column A) and click "OK."
+
+Now, you'll have a list of unique "Req Numbers" with "Not Found" status only.
+
+Please note that this approach assumes that the "Req Numbers" in column A have consistent formatting and do not contain leading/trailing spaces. If there are any variations, you may need to adjust the formulas accordingly.
